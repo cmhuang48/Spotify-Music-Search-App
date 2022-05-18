@@ -31,7 +31,7 @@ const SearchForm = (props) => {
             type="search"
             name="searchTerm"
             value={searchTerm}
-            placeholder="Search for album, artist or playlist"
+            placeholder="Search for song, album, artist or playlist"
             onChange={handleInputChange}
             autoComplete="off"
           />

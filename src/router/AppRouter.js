@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Auth from '../components/Auth';
 import Home from '../components/Home';
 import RedirectPage from '../components/RedirectPage';
 import Dashboard from '../components/Dashboard';
@@ -38,12 +39,19 @@ class AppRouter extends React.Component {
         <div className="main">
           <Switch>
             <Route
+              path="/auth/:tokens"
+              render={(props) => (
+                <Auth {...props} />
+              )}
+            />
+            <Route
               path="/"
               exact={true}
               render={(props) => (
                 <Home isValidSession={this.isValidSession} {...props} />
               )}
             />
+            
             <Route
               path="/redirect"
               render={(props) => (

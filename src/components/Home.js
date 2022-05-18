@@ -31,7 +31,7 @@ const Home = (props) => {
             <Alert variant="info">Session expired. Please login again.</Alert>
           )}
           <Button variant="info" type="submit" onClick={handleLogin}>
-            Login to spotify
+            Login To Spotify
           </Button>
         </div>
       )}

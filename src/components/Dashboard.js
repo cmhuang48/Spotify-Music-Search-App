@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {
   initiateGetResult,
+  initiateLoadMoreTracks,
   initiateLoadMoreAlbums,
   initiateLoadMorePlaylist,
   initiateLoadMoreArtists
@@ -11,10 +12,12 @@ import SearchResult from './SearchResult';
 import SearchForm from './SearchForm';
 import Header from './Header';
 import Loader from './Loader';
+import Player from './Player';
 
 const Dashboard = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('albums');
+  const [selectedCategory, setSelectedCategory] = useState('tracks');
+  const [playingTrack, setPlayingTrack] = useState(null);
   const { isValidSession, history } = props;
 
   const handleSearch = (searchTerm) => {
@@ -22,7 +25,7 @@ const Dashboard = (props) => {
       setIsLoading(true);
       props.dispatch(initiateGetResult(searchTerm)).then(() => {
         setIsLoading(false);
-        setSelectedCategory('albums');
+        setSelectedCategory('tracks');
       });
     } else {
       history.push({
@@ -36,9 +39,12 @@ const Dashboard = (props) => {
 
   const loadMore = async (type) => {
     if (isValidSession()) {
-      const { dispatch, albums, artists, playlist } = props;
+      const { dispatch, tracks, albums, artists, playlist } = props;
       setIsLoading(true);
       switch (type) {
+        case 'tracks': 
+          await dispatch(initiateLoadMoreTracks(tracks.next));
+          break;
         case 'albums':
           await dispatch(initiateLoadMoreAlbums(albums.next));
           break;
@@ -65,8 +71,12 @@ const Dashboard = (props) => {
     setSelectedCategory(category);
   };
 
-  const { albums, artists, playlist } = props;
-  const result = { albums, artists, playlist };
+  const setTrack = (track) => {
+    setPlayingTrack(track);
+  }
+
+  const { tracks, albums, artists, playlist } = props;
+  const result = { tracks, albums, artists, playlist };
 
   return (
     <React.Fragment>
@@ -78,10 +88,13 @@ const Dashboard = (props) => {
           <SearchResult
             result={result}
             loadMore={loadMore}
-            setCategory={setCategory}
             selectedCategory={selectedCategory}
+            setCategory={setCategory}
+            playingTrack={playingTrack}
+            setTrack={setTrack}
             isValidSession={isValidSession}
           />
+          <Player trackUri={playingTrack?.uri} />
         </div>
       ) : (
         <Redirect
@@ -99,6 +112,7 @@ const Dashboard = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    tracks: state.tracks,
     albums: state.albums,
     artists: state.artists,
     playlist: state.playlist

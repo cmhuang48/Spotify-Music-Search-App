@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
+import TracksList from './TracksList';
 import AlbumsList from './AlbumsList';
 import ArtistsList from './ArtistsList';
 import PlayList from './PlayList';
@@ -11,10 +12,12 @@ const SearchResult = (props) => {
     isValidSession,
     loadMore,
     result,
+    selectedCategory,
     setCategory,
-    selectedCategory
+    playingTrack,
+    setTrack
   } = props;
-  const { albums, artists, playlist } = result;
+  const { tracks, albums, artists, playlist } = result;
 
   if (!isValidSession()) {
     return (
@@ -32,6 +35,16 @@ const SearchResult = (props) => {
   return (
     <React.Fragment>
       <div className="search-buttons">
+        {!_.isEmpty(tracks.items) && (
+          <button
+            className={`${
+              selectedCategory === 'tracks' ? 'btn active' : 'btn'
+            }`}
+            onClick={() => setCategory('tracks')}
+          >
+            Tracks
+          </button>
+        )}
         {!_.isEmpty(albums.items) && (
           <button
             className={`${
@@ -59,18 +72,21 @@ const SearchResult = (props) => {
             }`}
             onClick={() => setCategory('playlist')}
           >
-            PlayLists
+            Playlists
           </button>
         )}
       </div>
+      <div className={`${selectedCategory === 'tracks' ? '' : 'hide'}`}>
+        {tracks && <TracksList tracks={tracks} playingTrack={playingTrack} setTrack={setTrack} />}
+      </div>
       <div className={`${selectedCategory === 'albums' ? '' : 'hide'}`}>
-        {albums && <AlbumsList albums={albums} />}
+        {albums && <AlbumsList albums={albums} playingTrack={playingTrack} setTrack={setTrack} />}
       </div>
       <div className={`${selectedCategory === 'artists' ? '' : 'hide'}`}>
-        {artists && <ArtistsList artists={artists} />}
+        {artists && <ArtistsList artists={artists} playingTrack={playingTrack} setTrack={setTrack} />}
       </div>
       <div className={`${selectedCategory === 'playlist' ? '' : 'hide'}`}>
-        {playlist && <PlayList playlist={playlist} />}
+        {playlist && <PlayList playlist={playlist} playingTrack={playingTrack} setTrack={setTrack} />}
       </div>
       {!_.isEmpty(result[selectedCategory]) &&
         !_.isEmpty(result[selectedCategory].next) && (
