@@ -107,6 +107,7 @@ export const initiateLoadMoreArtists = (url) => {
     }
   };
 };
+
 export const initiateLoadMorePlaylist = (url) => {
   return async (dispatch) => {
     try {

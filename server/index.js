@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const lyricsFinder = require('lyrics-finder');
 
 const app = express();
@@ -6,6 +7,7 @@ const app = express();
 // body parsing middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 app.get('/lyrics', async (req, res) => {
   try {

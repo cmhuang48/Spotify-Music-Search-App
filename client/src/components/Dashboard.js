@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 import {
   initiateGetResult,
   initiateLoadMoreTracks,
@@ -19,6 +20,7 @@ const Dashboard = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('tracks');
   const [playingTrack, setPlayingTrack] = useState(null);
+  const [lyrics, setLyrics] = useState('');
   const { isValidSession, history } = props;
 
   const handleSearch = (searchTerm) => {
@@ -76,6 +78,19 @@ const Dashboard = (props) => {
     setPlayingTrack(track);
   }
 
+  useEffect(() => {
+    if (!playingTrack) return;
+    
+    axios.get('http://localhost:3001/lyrics', { 
+      params: {
+        track: playingTrack.name,
+        artist: playingTrack.artists[0].name 
+      }
+    }).then(res => {
+      setLyrics(res.data.lyrics);
+    })
+  }, [playingTrack]);
+
   const { tracks, albums, artists, playlist } = props;
   const result = { tracks, albums, artists, playlist };
 
@@ -97,7 +112,7 @@ const Dashboard = (props) => {
               isValidSession={isValidSession}
             />
             ) : (
-              <Lyrics />
+              <Lyrics lyrics={lyrics} playingTrack={playingTrack} />
             )
           }
           <Player trackUri={playingTrack?.uri} isValidSession={isValidSession} />
