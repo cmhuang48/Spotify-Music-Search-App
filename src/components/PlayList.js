@@ -12,18 +12,13 @@ const PlayList = ({ playlist }) => {
             return (
               <React.Fragment key={index}>
                 <Card style={{ width: '18rem' }}>
-                  <a
-                    target="_blank"
-                    href={item.external_urls.spotify}
-                    rel="noopener noreferrer"
-                    className="card-image-link"
-                  >
+                  <div className="card-image-link">
                     {!_.isEmpty(item.images) ? (
                       <Card.Img variant="top" src={item.images[0].url} alt="" />
                     ) : (
                       <img src={music} alt="" />
                     )}
-                  </a>
+                  </div>
                   <Card.Body>
                     <Card.Title>{item.name}</Card.Title>
                     <Card.Text>

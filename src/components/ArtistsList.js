@@ -9,15 +9,12 @@ const ArtistsList = ({ artists }) => {
       {Object.keys(artists).length > 0 && (
         <div className="artists">
           {artists.items.map((artist, index) => {
+            console.log(artist);
+
             return (
               <React.Fragment key={index}>
                 <Card style={{ width: '18rem' }}>
-                  <a
-                    target="_blank"
-                    href={artist.external_urls.spotify}
-                    rel="noopener noreferrer"
-                    className="card-image-link"
-                  >
+                  <div className="card-image-link">
                     {!_.isEmpty(artist.images) ? (
                       <Card.Img
                         variant="top"
@@ -27,7 +24,7 @@ const ArtistsList = ({ artists }) => {
                     ) : (
                       <img src={music} alt="" />
                     )}
-                  </a>
+                  </div>
                   <Card.Body>
                     <Card.Title>{artist.name}</Card.Title>
                   </Card.Body>

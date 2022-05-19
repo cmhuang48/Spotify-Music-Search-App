@@ -6,16 +6,18 @@ const Player = ({ trackUri }) => {
 
   useEffect(() => setPlay(true), [trackUri]);
 
-  const token = window.localStorage.getItem('token')
-  if (!token) return null;
-  
+  const params = JSON.parse(localStorage.getItem('params'));
+  const { access_token } = params;
+  if (!access_token) return null;
+
   return <SpotifyPlayer 
-    token={token}
+    token={access_token}
     callback={state => {
       if(!state.isPlaying) setPlay(false);
     }}
     play={play} 
-    uris={trackUri ? [trackUri] : []} />;
+    uris={trackUri ? [trackUri] : []} 
+  />;
 };
 
 export default Player;

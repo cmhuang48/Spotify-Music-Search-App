@@ -3,8 +3,7 @@ import { Card } from 'react-bootstrap';
 import _ from 'lodash';
 import music from '../images/music.jpeg';
 
-const TracksList = ({ tracks }) => {
-  console.log(tracks)
+const TracksList = ({ tracks, setTrack }) => {
   return (
     <React.Fragment>
       {Object.keys(tracks).length > 0 && (
@@ -12,15 +11,10 @@ const TracksList = ({ tracks }) => {
           {tracks.items.map((track, index) => {
             return (
               <React.Fragment key={index}>
-                <Card style={{ width: '18rem' }}>
-                  <a
-                    target="_blank"
-                    href={track.external_urls.spotify}
-                    rel="noopener noreferrer"
-                    className="card-image-link"
-                  >
+                <Card style={{ width: '18rem' }} onClick={() => setTrack(track)}>
+                  <div className="card-image-link">
                     {!_.isEmpty(track.album.images) ? (
-                      <Card.Img
+                    <Card.Img
                         variant="top"
                         src={track.album.images[0].url}
                         alt=""
@@ -28,7 +22,7 @@ const TracksList = ({ tracks }) => {
                     ) : (
                       <img src={music} alt="" />
                     )}
-                  </a>
+                  </div>
                   <Card.Body>
                     <Card.Title>{track.name}</Card.Title>
                     <Card.Text>
