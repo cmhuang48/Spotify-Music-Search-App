@@ -13,6 +13,7 @@ import SearchForm from './SearchForm';
 import Header from './Header';
 import Loader from './Loader';
 import Player from './Player';
+import Lyrics from './Lyrics';
 
 const Dashboard = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -85,16 +86,21 @@ const Dashboard = (props) => {
           <Header />
           <SearchForm handleSearch={handleSearch} />
           <Loader show={isLoading}>Loading...</Loader>
-          <SearchResult
-            result={result}
-            loadMore={loadMore}
-            selectedCategory={selectedCategory}
-            setCategory={setCategory}
-            playingTrack={playingTrack}
-            setTrack={setTrack}
-            isValidSession={isValidSession}
-          />
-          <Player trackUri={playingTrack?.uri} />
+          {!playingTrack ? (
+            <SearchResult
+              result={result}
+              loadMore={loadMore}
+              selectedCategory={selectedCategory}
+              setCategory={setCategory}
+              playingTrack={playingTrack}
+              setTrack={setTrack}
+              isValidSession={isValidSession}
+            />
+            ) : (
+              <Lyrics />
+            )
+          }
+          <Player trackUri={playingTrack?.uri} isValidSession={isValidSession} />
         </div>
       ) : (
         <Redirect

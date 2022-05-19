@@ -9,8 +9,6 @@ const AlbumsList = ({ albums }) => {
       {Object.keys(albums).length > 0 && (
         <div className="albums">
           {albums.items.map((album, index) => {
-            console.log(album)
-
             return (
               <React.Fragment key={index}>
                 <Card style={{ width: '18rem' }}>
