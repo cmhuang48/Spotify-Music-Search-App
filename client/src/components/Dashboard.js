@@ -81,7 +81,7 @@ const Dashboard = (props) => {
   useEffect(() => {
     if (!playingTrack) return;
     
-    axios.get('http://localhost:3001/lyrics', { 
+    axios.get('https://spotify-translate.herokuapp.com/lyrics', { 
       params: {
         track: playingTrack.name,
         artist: playingTrack.artists[0].name 
