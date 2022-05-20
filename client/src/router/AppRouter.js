@@ -35,7 +35,6 @@ class AppRouter extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <div className="main">
           <Switch>
             <Route
               path="/"
@@ -63,7 +62,6 @@ class AppRouter extends React.Component {
             />
             <Route component={NotFoundPage} />
           </Switch>
-        </div>
       </BrowserRouter>
     );
   }

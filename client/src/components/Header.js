@@ -1,7 +1,11 @@
 import React from 'react';
 
 const Header = () => {
-  return <h1 className="main-heading">Spotify Listen and Translate</h1>;
+  return (
+    <a href='/' className='link'>
+      <h1 className="main-heading">Listen and Translate</h1>
+    </a>
+  );
 };
 
 export default Header;

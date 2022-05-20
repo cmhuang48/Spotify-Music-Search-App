@@ -22,25 +22,22 @@ const SearchForm = (props) => {
   };
 
   return (
-    <div>
-      <Form onSubmit={handleSearch}>
-        {errorMsg && <p className="errorMsg">{errorMsg}</p>}
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Enter search term</Form.Label>
-          <Form.Control
-            type="search"
-            name="searchTerm"
-            value={searchTerm}
-            placeholder="Search for song, album, artist or playlist"
-            onChange={handleInputChange}
-            autoComplete="off"
-          />
-        </Form.Group>
-        <Button variant="info" type="submit">
-          Search
-        </Button>
-      </Form>
-    </div>
+    <Form onSubmit={handleSearch} style={{ display: "flex", width: "80%", justifyContent: "center", alignItems: "center" }}>
+      {errorMsg && <p className="errorMsg">{errorMsg}</p>}
+      <Form.Group controlId="formBasicEmail" style={{ width: "30%", padding: "10px" }}>
+        <Form.Control
+          type="search"
+          name="searchTerm"
+          value={searchTerm}
+          placeholder="Search for song, album, artist or playlist"
+          onChange={handleInputChange}
+          autoComplete="off"
+        />
+      </Form.Group>
+      <Button variant="success" type="submit">
+        Search
+      </Button>
+    </Form>
   );
 };
 

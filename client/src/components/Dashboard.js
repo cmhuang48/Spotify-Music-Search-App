@@ -97,7 +97,7 @@ const Dashboard = (props) => {
   return (
     <React.Fragment>
       {isValidSession() ? (
-        <div>
+        <div className="dashboard">
           <Header />
           <SearchForm handleSearch={handleSearch} />
           <Loader show={isLoading}>Loading...</Loader>

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import Header from './Header';
 import { Redirect } from 'react-router-dom';
+import logo from '../images/Spotify_Logo_RGB_White.png';
 
 const Home = (props) => {
   const {
@@ -34,12 +35,13 @@ const Home = (props) => {
         <Redirect to="/dashboard" />
       ) : (
         <div className="login">
+          <img src={logo} alt="" />
           <Header />
           {sessionExpired && (
-            <Alert variant="info">Session expired. Please login again.</Alert>
+            <Alert variant="success">Session expired. Please login again.</Alert>
           )}
-          <Button variant="info" type="submit" onClick={handleLogin}>
-            Login To Spotify
+          <Button variant="success" size="lg" type="submit" onClick={handleLogin}>
+            Login With Spotify
           </Button>
         </div>
       )}

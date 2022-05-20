@@ -31,6 +31,7 @@ const Player = ({ isValidSession, trackUri }) => {
     }}
     play={play} 
     uris={trackUri ? [trackUri] : []} 
+    className="player"
   />;
 };
 

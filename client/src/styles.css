@@ -2,7 +2,8 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box;  
+  background-color:black;
 }
 
 body {
@@ -21,28 +22,50 @@ body {
   letter-spacing: 1px;
 }
 
+.link {
+  text-decoration: none;
+}
+
 .login {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: black;
+}
+
+.login > img {
+  width: 30%;
+  margin-top: 50px;
+}
+
+.login > .main-heading {
+  margin: 2rem 0;
+  color: #1db954;
+  padding: 10px;
+  text-align: center;
 }
 
 .login .btn {
   font-size: 1.2rem;
+  margin-top: 75px;
 }
 
-.main {
-  width: 90%;
-  margin: 2rem auto;
-}
-
-.form-control {
-  font-size: 1.2rem;
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
 }
 
 .main-heading {
   margin: 2rem 0;
+  color: #1db954;
+}
+
+.form-control {
+  font-size: 1.2rem;
 }
 
 .hide {
@@ -168,4 +191,34 @@ body {
   .main-heading {
     text-align: center;
   }
+}
+
+.player {
+  position: fixed;
+  bottom: 0;
+}
+
+.lyrics {
+  text-align: center;
+  white-space: pre;
+}
+
+.track > * {
+  color: #D3D3D3;
+}
+
+.tracks > * {
+  color: #D3D3D3;
+}
+
+.albums > * {
+  color: #D3D3D3;
+}
+
+.artists > * {
+  color: #D3D3D3;
+}
+
+.playlist > * {
+  color: #D3D3D3;
 }
