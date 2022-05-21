@@ -198,16 +198,19 @@ body {
   bottom: 0;
 }
 
+.track {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .lyrics {
   text-align: center;
   white-space: pre;
 }
 
 .track > * {
-  color: #D3D3D3;
-}
-
-.tracks > * {
   color: #D3D3D3;
 }
 

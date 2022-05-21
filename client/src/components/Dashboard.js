@@ -18,7 +18,7 @@ import Lyrics from './Lyrics';
 
 const Dashboard = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('tracks');
+  const [category, setCategory] = useState('tracks');
   const [playingTrack, setPlayingTrack] = useState(null);
   const [lyrics, setLyrics] = useState('');
   const { isValidSession, history } = props;
@@ -28,7 +28,7 @@ const Dashboard = (props) => {
       setIsLoading(true);
       props.dispatch(initiateGetResult(searchTerm)).then(() => {
         setIsLoading(false);
-        setSelectedCategory('tracks');
+        setCategory('tracks');
       });
     } else {
       history.push({
@@ -70,26 +70,25 @@ const Dashboard = (props) => {
     }
   };
 
-  const setCategory = (category) => {
-    setSelectedCategory(category);
-  };
-
-  const setTrack = (track) => {
-    setPlayingTrack(track);
-  }
-
   useEffect(() => {
     if (!playingTrack) return;
     
-    axios.get('https://spotify-translate-server.herokuapp.com/lyrics', { 
+    // change this to https://spotify-translate-server.herokuapp.com/lyrics before pushing to heroku
+    axios.get('http://localhost:3001/lyrics', { 
       params: {
         track: playingTrack.name,
         artist: playingTrack.artists[0].name 
       }
     }).then(res => {
+      console.log('lyrics', res)
       setLyrics(res.data.lyrics);
     })
   }, [playingTrack]);
+
+
+  const setTrack = (track) => {
+    setPlayingTrack(track);
+  };
 
   const { tracks, albums, artists, playlist } = props;
   const result = { tracks, albums, artists, playlist };
@@ -105,14 +104,14 @@ const Dashboard = (props) => {
             <SearchResult
               result={result}
               loadMore={loadMore}
-              selectedCategory={selectedCategory}
+              category={category}
               setCategory={setCategory}
               playingTrack={playingTrack}
               setTrack={setTrack}
               isValidSession={isValidSession}
             />
             ) : (
-              <Lyrics lyrics={lyrics} playingTrack={playingTrack} />
+              <Lyrics playingTrack={playingTrack} lyrics={lyrics} setLyrics={setLyrics} />
             )
           }
           <Player trackUri={playingTrack?.uri} isValidSession={isValidSession} />

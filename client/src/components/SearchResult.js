@@ -12,7 +12,7 @@ const SearchResult = (props) => {
     isValidSession,
     loadMore,
     result,
-    selectedCategory,
+    category,
     setCategory,
     playingTrack,
     setTrack
@@ -38,7 +38,7 @@ const SearchResult = (props) => {
         {!_.isEmpty(tracks.items) && (
           <button
             className={`${
-              selectedCategory === 'tracks' ? 'btn active' : 'btn'
+              category === 'tracks' ? 'btn active' : 'btn'
             }`}
             onClick={() => setCategory('tracks')}
           >
@@ -48,7 +48,7 @@ const SearchResult = (props) => {
         {!_.isEmpty(albums.items) && (
           <button
             className={`${
-              selectedCategory === 'albums' ? 'btn active' : 'btn'
+              category === 'albums' ? 'btn active' : 'btn'
             }`}
             onClick={() => setCategory('albums')}
           >
@@ -58,7 +58,7 @@ const SearchResult = (props) => {
         {!_.isEmpty(artists.items) && (
           <button
             className={`${
-              selectedCategory === 'artists' ? 'btn active' : 'btn'
+              category === 'artists' ? 'btn active' : 'btn'
             }`}
             onClick={() => setCategory('artists')}
           >
@@ -68,7 +68,7 @@ const SearchResult = (props) => {
         {!_.isEmpty(playlist.items) && (
           <button
             className={`${
-              selectedCategory === 'playlist' ? 'btn active' : 'btn'
+              category === 'playlist' ? 'btn active' : 'btn'
             }`}
             onClick={() => setCategory('playlist')}
           >
@@ -76,21 +76,31 @@ const SearchResult = (props) => {
           </button>
         )}
       </div>
-      <div className={`${selectedCategory === 'tracks' ? '' : 'hide'}`}>
-        {tracks && <TracksList tracks={tracks} playingTrack={playingTrack} setTrack={setTrack} />}
+      <div className={`${category === 'tracks' ? '' : 'hide'}`}>
+        {tracks && <TracksList 
+          tracks={tracks} 
+          playingTrack={playingTrack} 
+          setTrack={setTrack} 
+        />}
       </div>
-      <div className={`${selectedCategory === 'albums' ? '' : 'hide'}`}>
-        {albums && <AlbumsList albums={albums} playingTrack={playingTrack} setTrack={setTrack} />}
+      <div className={`${category === 'albums' ? '' : 'hide'}`}>
+        {albums && <AlbumsList 
+          albums={albums} 
+        />}
       </div>
-      <div className={`${selectedCategory === 'artists' ? '' : 'hide'}`}>
-        {artists && <ArtistsList artists={artists} playingTrack={playingTrack} setTrack={setTrack} />}
+      <div className={`${category === 'artists' ? '' : 'hide'}`}>
+        {artists && <ArtistsList           
+          artists={artists} 
+        />}
       </div>
-      <div className={`${selectedCategory === 'playlist' ? '' : 'hide'}`}>
-        {playlist && <PlayList playlist={playlist} playingTrack={playingTrack} setTrack={setTrack} />}
+      <div className={`${category === 'playlist' ? '' : 'hide'}`}>
+        {playlist && <PlayList 
+          playlist={playlist} 
+        />}
       </div>
-      {!_.isEmpty(result[selectedCategory]) &&
-        !_.isEmpty(result[selectedCategory].next) && (
-          <div className="load-more" onClick={() => loadMore(selectedCategory)}>
+      {!_.isEmpty(result[category]) &&
+        !_.isEmpty(result[category].next) && (
+          <div className="load-more" onClick={() => loadMore(category)}>
             <Button variant="info" type="button">
               Load More
             </Button>

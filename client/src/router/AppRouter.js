@@ -54,12 +54,14 @@ class AppRouter extends React.Component {
                 />
               )}
             />
+
             <Route
               path="/dashboard"
               render={(props) => (
                 <Dashboard isValidSession={this.isValidSession} {...props} />
               )}
             />
+            
             <Route component={NotFoundPage} />
           </Switch>
       </BrowserRouter>
